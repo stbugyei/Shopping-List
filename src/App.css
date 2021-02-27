@@ -1,0 +1,191 @@
+.product-wrapper {
+	width: 460px;
+	margin: 5% auto;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	background-color: #f8f8f8;
+	transition: .4s;
+}
+
+.logo-time {
+	position: relative;
+	color: #ddd;
+	font-size: 0.8rem;
+	font-weight: 600;
+	margin: 15px;
+	display: flex;
+	justify-content: space-between;
+	text-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+}
+
+.logo {
+	text-transform: uppercase;
+}
+
+.logo-time::before {
+	content: "";
+	position: absolute;
+	top: 26px;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	background-color: #ddd;
+}
+
+.title {
+	color: #fff;
+	margin: 20px;
+	text-align: right;
+	text-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+}
+
+.input-wrapper {
+	position: relative;
+	width: 100%;
+	margin-bottom: 8px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: blueviolet;
+	transition: all .3s;
+}
+
+.price-quantity {
+	width: 100%;
+	display: flex;
+}
+
+.btn-add {
+	width: 96%;
+	color: #fff;
+	padding: 8px;
+	float: right;
+	outline: none;
+	cursor: pointer;
+	text-transform: capitalize;
+	border-radius: 4px;
+	font-size: 19px;
+	font-weight: 600;
+	font-family: inherit;
+	margin: 10px;
+	border: 1px transparent;
+	letter-spacing: 3px;
+	text-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+	background: linear-gradient(45deg, white, transparent);
+	box-shadow: 0px 8px 8px -6px #312;
+	transition: all .3s cubic-bezier(.64, .09, .08, 1);
+}
+
+.btn-delete {
+	outline: none;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+	text-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+	background: linear-gradient(45deg, white, transparent);
+	box-shadow: 0px 8px 8px -6px #312;
+	transition: all .3s cubic-bezier(.64, .09, .08, 1);
+}
+
+.btn-delete:hover {
+	box-shadow: initial;
+	transition: all .3s cubic-bezier(.64, .09, .08, 1);
+}
+
+.btn-add:hover {
+	color: cornsilk;
+	box-shadow: initial;
+	background: linear-gradient(-45deg, white, transparent);
+	transition: .3s cubic-bezier(.64, .09, .08, 1);
+}
+
+.input-field {
+	width: 95%;
+	padding: 0 50px 0 10px;
+	margin: 10px;
+	font-size: .8rem;
+	line-height: 2.5rem;
+	resize: vertical;
+	outline: none;
+	border: none;
+	box-shadow: 0px 8px 8px -6px #312;
+	transition: all .3s cubic-bezier(.64, .09, .08, 1);
+}
+
+.form-wrapper {
+	/* width: 100%;  */
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 10px;
+	margin: 3px;
+	border: 1px solid blueviolet;
+	border-radius: 4px;
+	background-color: #fff;
+	text-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+	animation: fade .8s;
+	-webkit-transition: .3s ease;
+	transition: .3s ease;
+	/* box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%); */
+}
+
+.loader {
+	text-align: center;
+  padding: 25px;
+  transition: .3s;
+  color: blueviolet;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+  animation: fade 1s;
+}
+
+/* customised checkbox */
+
+.value {
+	position: relative;
+}
+
+.value input[type=checkbox] {
+	display: none;
+}
+
+.value input[type=checkbox] ~ b {
+	cursor: pointer;
+	outline: 0;
+	position: relative;
+	display: inline-block;
+	font-size: 18px;
+	color: navy;
+	background-color: #fff;
+	border: 2px solid navy;
+	border-radius: 4px;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	line-height: 1;
+	text-align: center;
+}
+
+.value input[type=checkbox]:checked ~ b:after {
+	content: '\2713';
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+	.product-wrapper {
+		width: 100%;
+		height: 100vh;
+		margin: initial;
+		border-radius: initial;
+	}
+
+	.input-wrapper {
+		border-top-left-radius: initial;
+		border-top-right-radius: initial;
+	}
+
+	.title {
+		margin: 4px;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+}
