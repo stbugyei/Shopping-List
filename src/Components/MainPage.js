@@ -76,8 +76,10 @@ const MainPage = () => {
 
     //====== Removing items from localStorage  ====== 
     const handleClickDelete = (items) => {
-        const newList = storedProduct.filter((item) => item.id !== items.id)
-        setStoredProduct(newList)
+        if (window.confirm(`Do you want to Remove ${items.item}?`)) {
+            const newList = storedProduct.filter((item) => item.id !== items.id)
+            setStoredProduct(newList)
+        }
     }
 
     return (

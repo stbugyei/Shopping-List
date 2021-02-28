@@ -44,8 +44,8 @@ const StoredProducts = (props) => {
         if (!retrieveProduct) { return '' }
 
         return (
-            <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color }}>
-                <span className="sidebar" style={{ backgroundColor: stored.color}}></span>
+            <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color}}>
+                {/* <span className="sidebar" style={{ backgroundColor: stored.color}}></span> */}
 
                 <div className="value">
                     <label htmlFor={stored.id}>
