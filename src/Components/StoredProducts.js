@@ -25,24 +25,27 @@ const StoredProducts = (props) => {
                 setRetrieveProduct(productsResponse);
             }
         }
-
         let interval = setInterval(() => fetchData(), 1000);
+
         return () => {
             clearInterval(interval);
         }
     }, [retrieveProduct])
 
 
+
     if (!(retrieveProduct && Object.keys(retrieveProduct).length)) {
         return (
-           <span className="loader"><h1>Hello! Please Add Item To Your Checklist &#128522;</h1></span>
+            <span className="loader"><h1>Hello! Please Add Item To Your Checklist &#128522;</h1></span>
         )
     }
 
     const productCard = retrieveProduct.map((stored, i) => {
         if (!retrieveProduct) { return '' }
+
         return (
-            <div className="form-wrapper" key={stored.id}>
+            <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color }}>
+                <span className="sidebar" style={{ backgroundColor: stored.color}}></span>
 
                 <div className="value">
                     <label htmlFor={stored.id}>
@@ -53,7 +56,7 @@ const StoredProducts = (props) => {
                             defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
                             onChange={(e) => selectOption(e, `${stored.id}`)}
                         />
-                        <b></b> 
+                        <b></b>
                         {stored.item ? <span style={{ marginLeft: "5px" }}>{stored.item}</span> : 'null'}
                     </label>
                 </div>

@@ -5,8 +5,8 @@ const CurrentDate = () => {
     const [localTime, setLocalTime] = useState();
 
     const currentDate = new Date();
-    const options = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    const presentDay = currentDate.toLocaleDateString(undefined, options);
+    const options = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone:"Europe/Helsinki" };
+    const presentDay = currentDate.toLocaleDateString('default', options);
  
     useEffect(() => {
 

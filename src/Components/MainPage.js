@@ -14,7 +14,8 @@ const MainPage = () => {
         item: "",
         quantity: "",
         price: "",
-        total: ""
+        total: "",
+        color: "",
     });
 
     const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
@@ -53,6 +54,19 @@ const MainPage = () => {
 
     product.total = addPrice();
 
+    //========= Making a random color generator ========= 
+    const generateHexaColor = () => {
+        let string = '0123456789abcdef'
+        let hexaColor = '#'
+        for (let i = 0; i < 6; i++) {
+            let index = Math.floor(Math.random() * string.length)
+            hexaColor += string[index]
+        }
+        return hexaColor
+    }
+
+    product.color = generateHexaColor();
+
     //====== Adding items to localStorage  ====== 
     const addToStorage = (items) => {
         if (!storedProduct.some(fav => fav.id === items.id)) {
@@ -77,23 +91,23 @@ const MainPage = () => {
 
                 <div className="title">
                     <h1>My Shopping CheckList</h1>
-                    {(localTime !== 'undefined' || localTime !== null) ? <h4 style={{ color: '#ddd' }}>Total Amount: {((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(reducer)))}</h4> : ''}
+                    {(localTime !== 'undefined' || localTime !== null) ? <h4>Total Amount: <span style={{ color: 'bisque' }}>{((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(reducer)))}</span></h4> : ''}
                 </div>
 
-                <input type="text" className="input-field" placeholder="Add Item"
+                <input type="text" className="input-field" placeholder="Add Item..."
                     name="item"
                     value={product.item || ""}
                     onChange={handleChange}
                 />
 
                 <div className="price-quantity">
-                    <input type="text" className="input-field" placeholder="Add Quantity" style={{ width: '48%' }}
+                    <input type="text" className="input-field" placeholder="Add Quantity..." style={{ width: '48%' }}
                         name="quantity"
                         value={product.quantity || ""}
                         onChange={handleChange}
                     />
 
-                    <input type="text" className="input-field" placeholder="Add Price" style={{ width: '48%' }}
+                    <input type="text" className="input-field" placeholder="Add Price..." style={{ width: '48%' }}
                         name="price"
                         value={product.price || ""}
                         onChange={handleChange}
@@ -101,9 +115,9 @@ const MainPage = () => {
                 </div>
 
                 <button className="btn-add" onClick={() => addToStorage(product)}>
-                    Add product to list
+                    Click to Add item to list
                 </button>
-        
+
             </form>
 
             <StoredProducts handleClickDelete={handleClickDelete} product={product} />
