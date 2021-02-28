@@ -3,7 +3,7 @@ import { IoTrashOutline } from 'react-icons/io5';
 
 const StoredProducts = (props) => {
 
-    const { handleClickDelete } = props
+    const { handleClickDelete, addPurchasedStorage } = props
 
     const [retrieveProduct, setRetrieveProduct] = useState('');
 
@@ -55,6 +55,7 @@ const StoredProducts = (props) => {
                             type="checkbox"
                             defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
                             onChange={(e) => selectOption(e, `${stored.id}`)}
+                            onClick={(e)=> addPurchasedStorage(e, retrieveProduct[i])}
                         />
                         <b></b>
                         {stored.item ? <span style={{ marginLeft: "5px" }}>{stored.item}</span> : 'null'}

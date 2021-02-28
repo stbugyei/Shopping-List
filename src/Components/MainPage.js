@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage"
 import StoredProducts from './StoredProducts';
 import currentDate from './CurrentDate';
 import totalAmount from './TotalAmount';
 
+
 const MainPage = () => {
+
+    const history = useHistory();
 
     const { localTime } = currentDate();
     const { reducer } = totalAmount();
@@ -19,6 +23,7 @@ const MainPage = () => {
     });
 
     const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
+    const [purchasedProduct, setPurchasedProduct] = useLocalStorage("purchased", []);
 
     //================ ID =================
     product.id = (Math.random() * 1000000).toFixed(0)
@@ -74,6 +79,19 @@ const MainPage = () => {
         }
     }
 
+    //====== Adding items to localStorage  ====== 
+    const addPurchasedStorage = (e, items) => {
+        if (e.target.checked) {
+            if (!purchasedProduct.some(fav => fav.id === items.id)) {
+                setPurchasedProduct([...purchasedProduct, items])
+            }
+        }
+        else {
+            const newList = purchasedProduct.filter((item) => item.id !== items.id)
+            setPurchasedProduct(newList)
+        }
+    }
+
     //====== Removing items from localStorage  ====== 
     const handleClickDelete = (items) => {
         if (window.confirm(`Do you want to Remove ${items.item}?`)) {
@@ -81,6 +99,13 @@ const MainPage = () => {
             setStoredProduct(newList)
         }
     }
+
+    //======= Navigation functions ========
+    const handlePurchased = () => {
+        history.push("/purchaseditem");
+        console.log('hit')
+    }
+
 
     return (
         <div className="product-wrapper">
@@ -93,7 +118,7 @@ const MainPage = () => {
 
                 <div className="title">
                     <h1>My Shopping CheckList</h1>
-                    {(localTime !== 'undefined' || localTime !== null) ? <h4>Total Amount: <span style={{ color: 'bisque' }}>{((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(reducer)))}</span></h4> : ''}
+                    <h4>Total Amount: <span style={{ color: 'bisque' }}>{((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(reducer)))}</span></h4>
                 </div>
 
                 <input type="text" className="input-field" placeholder="Add Item..."
@@ -120,9 +145,12 @@ const MainPage = () => {
                     Click to Add item to list
                 </button>
 
-            </form>
+                <button className="btn-add" onClick={handlePurchased}>
+                    View Purchased item
+                </button>
 
-            <StoredProducts handleClickDelete={handleClickDelete} product={product} />
+            </form>
+            <StoredProducts handleClickDelete={handleClickDelete} product={product} addPurchasedStorage={addPurchasedStorage} />
         </div>
     )
 }
