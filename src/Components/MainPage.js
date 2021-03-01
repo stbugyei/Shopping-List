@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage"
+import { IoCartOutline } from 'react-icons/io5';
 import StoredProducts from './StoredProducts';
 import currentDate from './CurrentDate';
 import totalAmount from './TotalAmount';
@@ -85,6 +86,7 @@ const MainPage = () => {
             if (!purchasedProduct.some(fav => fav.id === items.id)) {
                 setPurchasedProduct([...purchasedProduct, items])
             }
+
         }
         else {
             const newList = purchasedProduct.filter((item) => item.id !== items.id)
@@ -94,16 +96,23 @@ const MainPage = () => {
 
     //====== Removing items from localStorage  ====== 
     const handleClickDelete = (items) => {
-        if (window.confirm(`Do you want to Remove ${items.item}?`)) {
-            const newList = storedProduct.filter((item) => item.id !== items.id)
-            setStoredProduct(newList)
+        //get all key values from localStorage and compare with the id of the item;
+        let allStorageKeys = Object.keys(localStorage);
+        if (allStorageKeys.includes(`${items.id}`)) {
+            alert(`Please uncheck ${items.item}\nbefore Remove`);
+        }
+        else {
+            if (window.confirm(`Do you want to Remove ${items.item}?`)) {
+                const newList = storedProduct.filter((item) => item.id !== items.id)
+                setStoredProduct(newList)
+            }
         }
     }
+
 
     //======= Navigation functions ========
     const handlePurchased = () => {
         history.push("/purchaseditem");
-        console.log('hit')
     }
 
 
@@ -116,9 +125,16 @@ const MainPage = () => {
                     <div>{localTime}</div>
                 </div>
 
-                <div className="title">
-                    <h1>My Shopping CheckList</h1>
-                    <h4>Total Amount: <span style={{ color: 'bisque' }}>{((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(reducer)))}</span></h4>
+                <div className="banner">
+                    <div className="banner-cart" onClick={handlePurchased}>
+                        <IoCartOutline className="banner-cart__outline" />
+                        <h4>View Cart</h4>
+                        <span className="btn-cart">{purchasedProduct.length}</span>
+                    </div>
+                    <div className="title">
+                        <h1>My Shopping CheckList</h1>
+                        <h4> <span style={{ color: 'chartreuse' }}>Total Amount:</span>  <span>{((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(reducer)))}</span></h4>
+                    </div>
                 </div>
 
                 <input type="text" className="input-field" placeholder="Add Item..."
@@ -143,10 +159,6 @@ const MainPage = () => {
 
                 <button className="btn-add" onClick={() => addToStorage(product)}>
                     Click to Add item to list
-                </button>
-
-                <button className="btn-add" onClick={handlePurchased}>
-                    View Purchased item
                 </button>
 
             </form>

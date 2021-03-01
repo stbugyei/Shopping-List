@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { IoTrashOutline } from 'react-icons/io5';
 
+
 const StoredProducts = (props) => {
 
     const { handleClickDelete, addPurchasedStorage } = props
@@ -34,6 +35,8 @@ const StoredProducts = (props) => {
 
 
 
+
+
     if (!(retrieveProduct && Object.keys(retrieveProduct).length)) {
         return (
             <span className="loader"><h1>Hello! Please Add Item To Your Checklist &#128522;</h1></span>
@@ -41,11 +44,10 @@ const StoredProducts = (props) => {
     }
 
     const productCard = retrieveProduct.map((stored, i) => {
-        if (!retrieveProduct) { return '' }
 
         return (
-            <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color}}>
-                {/* <span className="sidebar" style={{ backgroundColor: stored.color}}></span> */}
+            <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color }}>
+                {/* <span className="sidebar" style={{ backgroundColor: stored.color }}></span> */}
 
                 <div className="value">
                     <label htmlFor={stored.id}>
@@ -55,7 +57,7 @@ const StoredProducts = (props) => {
                             type="checkbox"
                             defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
                             onChange={(e) => selectOption(e, `${stored.id}`)}
-                            onClick={(e)=> addPurchasedStorage(e, retrieveProduct[i])}
+                            onClick={(e) => addPurchasedStorage(e, retrieveProduct[i])}
                         />
                         <b></b>
                         {stored.item ? <span style={{ marginLeft: "5px" }}>{stored.item}</span> : 'null'}
@@ -74,7 +76,7 @@ const StoredProducts = (props) => {
                     {stored.total ? <span> {((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stored.total)))}</span> : 'null'}
                 </div>
 
-                <button className="btn-delete" onClick={() => handleClickDelete(retrieveProduct[i])}>
+                <button className="btn-delete" onClick={() => handleClickDelete(stored)}>
                     <IoTrashOutline style={{ color: 'salmon', fontSize: '20px', fontWeight: 'bold', transition: 'all .4s' }} />
                 </button>
             </div>
@@ -89,3 +91,5 @@ const StoredProducts = (props) => {
 }
 
 export default StoredProducts
+
+// , display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', padding: '10px', margin: '0px 0px 7px', textShadow: '0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%)',animation: 'fade .8s', position:'relative' 
