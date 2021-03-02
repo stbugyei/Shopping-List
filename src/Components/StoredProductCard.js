@@ -11,7 +11,7 @@ const StoredProductCard = (props) => {
     const handleClose = () => {
         setIsopen(false)
     }
-   localStorage.clear();
+
     //get all key values from localStorage and compare with the id of the item;
     let allStorageKeys = Object.keys(localStorage);
 
