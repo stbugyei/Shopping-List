@@ -35,7 +35,7 @@ const StoredProducts = (props) => {
 
     if (!(retrieveProduct && Object.keys(retrieveProduct).length)) {
         return (
-            <span className="loader"><h1>Hello! Please Add Item To Your Checklist &#128522;</h1></span>
+            <span className="loader"><h1>Hello! Please Add Item To Your Checklist 😍</h1></span>
         )
     }
 

@@ -133,7 +133,7 @@ const MainPage = () => {
                 <div className="banner">
                     <div className="banner-cart" onClick={handlePurchased}>
                         <IoCartOutline className="banner-cart__outline" />
-                        <h4>View Cart</h4>
+                        <h4> Purchased Item</h4>
                         <span className="btn-cart">{purchasedProduct.length}</span>
                     </div>
                     <div className="title">

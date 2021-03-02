@@ -51,10 +51,10 @@ const StoredProductCard = (props) => {
 
             {(!(allStorageKeys.includes(stored.id))) ?
                 <DialogueBox isopen={isopen} handleClose={handleClose}>
-                    <div className="confirm-title"> <h4>Do you want to Remove <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> ?</h4></div>
+                    <div className="confirm-title"> <h4>Do You Want To Remove <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> ?</h4></div>
                     <div className="btn-yes__wrapper">
                         <button className="btn-no" onClick={() => handleClose()}>No</button>
-                        <button className="btn-yes" onClick={() => handleClickDelete(retrieveProduct[i])}>Yes</button>
+                        <button className="btn-yes" onClick={() => { handleClickDelete(retrieveProduct[i]); handleClose() }}>Yes</button>
                     </div>
                 </DialogueBox>
                 :

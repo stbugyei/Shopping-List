@@ -2,7 +2,7 @@ import React from 'react'
 
 const DialogueBox = (props) => {
 
-    const { handleClose, isopen } = props
+    const { handleClose, isopen, children } = props
 
     let dialogue = (
         <div className="dialogue-wrapper">
@@ -15,7 +15,7 @@ const DialogueBox = (props) => {
 
                 <span style={{ display:'block', fontSize: '70px', color: 'red', textAlign:'center' }}><i className="fas fa-question-circle"></i></span>
 
-                <div>{props.children}</div>
+                <div>{children}</div>
             </div>
 
         </div>
