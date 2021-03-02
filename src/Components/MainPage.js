@@ -25,6 +25,7 @@ const MainPage = () => {
 
     const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
     const [purchasedProduct, setPurchasedProduct] = useLocalStorage("purchased", []);
+    const [notification, setNotification] = useState("");
 
     //================ ID =================
     product.id = (Math.random() * 1000000).toFixed(0)
@@ -111,7 +112,8 @@ const MainPage = () => {
 
     const handleClickDelete = (items) => {
         const newList = storedProduct.filter((item) => item.id !== items.id)
-        setStoredProduct(newList)
+        setStoredProduct(newList);
+        setNotification(`${items.item} Removed !`);
     }
 
 
@@ -167,7 +169,7 @@ const MainPage = () => {
                 </button>
 
             </form>
-            <StoredProducts handleClickDelete={handleClickDelete} product={product} addPurchasedStorage={addPurchasedStorage} />
+            <StoredProducts handleClickDelete={handleClickDelete} product={product} addPurchasedStorage={addPurchasedStorage} notification={notification} setNotification={setNotification}/>
         </div>
     )
 }

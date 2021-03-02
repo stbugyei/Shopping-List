@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { IoTrashOutline } from 'react-icons/io5';
 import DialogueBox from './DialogueBox';
+import Notification from './Notification';
 
 const StoredProductCard = (props) => {
 
-    const { stored, handleClickDelete, selectOption, addPurchasedStorage, retrieveProduct, i } = props
+    const { stored, handleClickDelete, selectOption, addPurchasedStorage, retrieveProduct, notification, setNotification, i } = props
 
     const [isopen, setIsopen] = useState(false)
 
@@ -65,18 +66,7 @@ const StoredProductCard = (props) => {
                 </DialogueBox>
             }
 
-            {/* <DialogueBox isopen={isopen} handleClose={handleClose}>
-                {(allStorageKeys.includes(stored.id)) ?
-                    <>
-                        <div className="confirm-title"> <h4>Please uncheck <input type="checkbox" defaultChecked /> <span style={{ color: 'red' }}>{stored.item}</span> before Remove !</h4></div>
-                    </> :
-                    <>
-                        <div className="confirm-title"> <h4>Do you want to Remove <span style={{ color: 'red' }}>{stored.item}</span> ?</h4></div>
-
-                        <div className="btn-yes" onClick={() => handleClickDelete(retrieveProduct[i])}>Yes</div>
-                    </>
-                }
-            </DialogueBox> */}
+            {notification ? <Notification notification={notification} setNotification={setNotification}/> : ''}
         </>
     )
 }

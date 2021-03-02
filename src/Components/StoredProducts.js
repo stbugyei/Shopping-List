@@ -4,7 +4,7 @@ import StoredProductCard from './StoredProductCard';
 
 const StoredProducts = (props) => {
 
-    const { handleClickDelete, addPurchasedStorage } = props
+    const { handleClickDelete, addPurchasedStorage, notification, setNotification } = props
 
     const [retrieveProduct, setRetrieveProduct] = useState('');
 
@@ -32,7 +32,15 @@ const StoredProducts = (props) => {
         }
     }, [retrieveProduct])
 
-
+   
+    useEffect(() => {
+        const reset = setInterval(() => (setNotification("")), 15000)
+        return () => {
+            clearInterval(reset);
+        }
+    }, [setNotification])
+    
+    
     if (!(retrieveProduct && Object.keys(retrieveProduct).length)) {
         return (
             <span className="loader"><h1>Hello! Please Add Item To Your Checklist 😍</h1></span>
@@ -45,7 +53,7 @@ const StoredProducts = (props) => {
             <div className="form-wrapper" key={i} style={{ borderColor: stored.color }}>
                 {/* <span className="sidebar" style={{ backgroundColor: stored.color }}></span> */}
                 <StoredProductCard
-                    stored={stored} handleClickDelete={handleClickDelete} selectOption={selectOption} addPurchasedStorage={addPurchasedStorage} retrieveProduct={retrieveProduct} i={i}
+                    stored={stored} handleClickDelete={handleClickDelete} selectOption={selectOption} addPurchasedStorage={addPurchasedStorage} retrieveProduct={retrieveProduct} i={i} notification={notification} setNotification={setNotification}
                 />
             </div>
         )

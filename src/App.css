@@ -276,6 +276,17 @@
 	box-shadow: 0 10px 20px rgb(0 0 0 / 9%);
 }
 
+.notification{
+	font-size: 16px;
+	text-align: center;
+	padding: 20px;
+}
+
+.notification::first-letter { 
+	font-size: 250%; 
+	color: darkblue; 
+} 
+
 .confirm-title {
 	width: 100%;
 	color: darkblue;
