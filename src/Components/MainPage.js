@@ -95,18 +95,23 @@ const MainPage = () => {
     }
 
     //====== Removing items from localStorage  ====== 
+    //const handleClickDelete = (items) => {
+    //get all key values from localStorage and compare with the id of the item;
+    // let allStorageKeys = Object.keys(localStorage);
+    // if (allStorageKeys.includes(`${items.id}`)) {
+    //     alert(`Please uncheck ${items.item}\nbefore Remove`);
+    // }
+    // else {
+    //     if (window.confirm(`Do you want to Remove ${items.item}?`)) {
+    //         const newList = storedProduct.filter((item) => item.id !== items.id)
+    //         setStoredProduct(newList)
+    //     }
+    // }
+    //}
+
     const handleClickDelete = (items) => {
-        //get all key values from localStorage and compare with the id of the item;
-        let allStorageKeys = Object.keys(localStorage);
-        if (allStorageKeys.includes(`${items.id}`)) {
-            alert(`Please uncheck ${items.item}\nbefore Remove`);
-        }
-        else {
-            if (window.confirm(`Do you want to Remove ${items.item}?`)) {
-                const newList = storedProduct.filter((item) => item.id !== items.id)
-                setStoredProduct(newList)
-            }
-        }
+        const newList = storedProduct.filter((item) => item.id !== items.id)
+        setStoredProduct(newList)
     }
 
 

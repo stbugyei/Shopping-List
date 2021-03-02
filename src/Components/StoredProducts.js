@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { IoTrashOutline } from 'react-icons/io5';
+import StoredProductCard from './StoredProductCard';
 
 
 const StoredProducts = (props) => {
@@ -18,7 +18,6 @@ const StoredProducts = (props) => {
         }
     }
 
-
     useEffect(() => {
         const fetchData = async () => {
             const productsResponse = await JSON.parse(localStorage.getItem('products'));
@@ -34,9 +33,6 @@ const StoredProducts = (props) => {
     }, [retrieveProduct])
 
 
-
-
-
     if (!(retrieveProduct && Object.keys(retrieveProduct).length)) {
         return (
             <span className="loader"><h1>Hello! Please Add Item To Your Checklist &#128522;</h1></span>
@@ -44,41 +40,13 @@ const StoredProducts = (props) => {
     }
 
     const productCard = retrieveProduct.map((stored, i) => {
-
+        if (!retrieveProduct) { return '' }
         return (
-            <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color }}>
+            <div className="form-wrapper" key={i} style={{ borderColor: stored.color }}>
                 {/* <span className="sidebar" style={{ backgroundColor: stored.color }}></span> */}
-
-                <div className="value">
-                    <label htmlFor={stored.id}>
-                        <input
-                            id={stored.id}
-                            name={stored.item}
-                            type="checkbox"
-                            defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
-                            onChange={(e) => selectOption(e, `${stored.id}`)}
-                            onClick={(e) => addPurchasedStorage(e, retrieveProduct[i])}
-                        />
-                        <b></b>
-                        {stored.item ? <span style={{ marginLeft: "5px" }}>{stored.item}</span> : 'null'}
-                    </label>
-                </div>
-
-                <div className="quantity">
-                    {stored.quantity ? <span> Qty: {stored.quantity}</span> : 'null'}
-                </div>
-
-                <div className="price">
-                    {stored.price ? <span>€ {stored.price}</span> : 'null'}
-                </div>
-
-                <div className="total">
-                    {stored.total ? <span> {((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stored.total)))}</span> : 'null'}
-                </div>
-
-                <button className="btn-delete" onClick={() => handleClickDelete(stored)}>
-                    <IoTrashOutline style={{ color: 'salmon', fontSize: '20px', fontWeight: 'bold', transition: 'all .4s' }} />
-                </button>
+                <StoredProductCard
+                    stored={stored} handleClickDelete={handleClickDelete} selectOption={selectOption} addPurchasedStorage={addPurchasedStorage} retrieveProduct={retrieveProduct} i={i}
+                />
             </div>
         )
     })
@@ -91,5 +59,3 @@ const StoredProducts = (props) => {
 }
 
 export default StoredProducts
-
-// , display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', padding: '10px', margin: '0px 0px 7px', textShadow: '0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%)',animation: 'fade .8s', position:'relative' 
