@@ -7,7 +7,7 @@ const DialogueBox = (props) => {
     let dialogue = (
         <div className="dialogue-wrapper">
             <div className="dialogue-content">
-                <div style={{ width: '100%' }}>
+                <div style={{ width: '100%', marginBottom:'15px' }}>
                     <button className="btn-close" onClick={handleClose}>
                         <i className="far fa-times-circle"></i>
                     </button>

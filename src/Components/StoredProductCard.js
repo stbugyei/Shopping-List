@@ -48,7 +48,24 @@ const StoredProductCard = (props) => {
                 <IoTrashOutline style={{ color: 'salmon', fontSize: '20px', fontWeight: 'bold', transition: 'all .4s' }} />
             </button>
 
-            <DialogueBox isopen={isopen} handleClose={handleClose}>
+
+            {(!(allStorageKeys.includes(stored.id))) ?
+                <DialogueBox isopen={isopen} handleClose={handleClose}>
+                    <div className="confirm-title"> <h4>Do you want to Remove <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> ?</h4></div>
+                    <div className="btn-yes__wrapper">
+                        <button className="btn-no" onClick={() => handleClose()}>No</button>
+                        <button className="btn-yes" onClick={() => handleClickDelete(retrieveProduct[i])}>Yes</button>
+                    </div>
+                </DialogueBox>
+                :
+                <DialogueBox isopen={isopen} handleClose={handleClose}>
+                    <div className="confirm-title"> <h4>Please uncheck &#9745; <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> before Remove !</h4></div>
+
+                    <button className="btn-no" style={{ width: '100%', marginBottom: '10px' }} onClick={() => handleClose()}>OK</button>
+                </DialogueBox>
+            }
+
+            {/* <DialogueBox isopen={isopen} handleClose={handleClose}>
                 {(allStorageKeys.includes(stored.id)) ?
                     <>
                         <div className="confirm-title"> <h4>Please uncheck <input type="checkbox" defaultChecked /> <span style={{ color: 'red' }}>{stored.item}</span> before Remove !</h4></div>
@@ -59,7 +76,7 @@ const StoredProductCard = (props) => {
                         <div className="btn-yes" onClick={() => handleClickDelete(retrieveProduct[i])}>Yes</div>
                     </>
                 }
-            </DialogueBox>
+            </DialogueBox> */}
         </>
     )
 }
