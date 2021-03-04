@@ -34,42 +34,6 @@ function App() {
     setStoredProduct(storedProduct.map((item) => (item.id === id ? filteredItem : item)))
   }
 
-  const checkCompleted2 = (id) => {
-    setStoredProduct(storedProduct.map(item => {
-      if (item.id === id) {
-        storedProduct.selected = !storedProduct.selected
-        console.log(!storedProduct.selected)
-      }
-      return item
-    })
-    );
-  }
-
-  const checkCompleted = (id) => {
-    setStoredProduct(prevState => ({
-      ...prevState, selected: setStoredProduct(storedProduct.map(item => {
-        if (item.id === id) {
-          storedProduct.selected = !storedProduct.selected
-          console.log(!storedProduct.selected)
-        }
-        return item
-      })
-      )
-    }))
-  }
-  //==========Function to check completed box ========
-  const checkCompleted1 = id => {
-    this.setState({
-      todos: this.state.todos.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      })
-    });
-  };
-
-
 
   return (
 
@@ -85,7 +49,7 @@ function App() {
         </Route>
 
         <Route exact path="/">
-          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} />
+          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct}  />
         </Route>
 
       </Switch>
