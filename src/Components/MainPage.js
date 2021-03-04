@@ -7,7 +7,9 @@ import currentDate from './CurrentDate';
 import totalAmount from './TotalAmount';
 
 
-const MainPage = () => {
+const MainPage = (props) => {
+
+    const { addToStorage, handleClickDelete, notification, setNotification, updateItem, storedProduct } = props
 
     const history = useHistory();
 
@@ -21,11 +23,12 @@ const MainPage = () => {
         price: "",
         total: "",
         color: "",
+        check: false,
     });
 
-    const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
+    // const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
     const [purchasedProduct, setPurchasedProduct] = useLocalStorage("purchased", []);
-    const [notification, setNotification] = useState("");
+    // const [notification, setNotification] = useState("");
 
     //================ ID =================
     product.id = (Math.random() * 1000000).toFixed(0)
@@ -74,46 +77,17 @@ const MainPage = () => {
 
     product.color = generateHexaColor();
 
-    //====== Adding items to localStorage  ====== 
-    const addToStorage = (items) => {
-        if (!storedProduct.some(fav => fav.id === items.id)) {
-            setStoredProduct([...storedProduct, items])
-        }
-    }
-
-    //====== Adding items to localStorage  ====== 
+    //====== Adding purchased items to localStorage  ====== 
     const addPurchasedStorage = (e, items) => {
         if (e.target.checked) {
             if (!purchasedProduct.some(fav => fav.id === items.id)) {
                 setPurchasedProduct([...purchasedProduct, items])
             }
-
         }
         else {
             const newList = purchasedProduct.filter((item) => item.id !== items.id)
             setPurchasedProduct(newList)
         }
-    }
-
-    //====== Removing items from localStorage  ====== 
-    //const handleClickDelete = (items) => {
-    //get all key values from localStorage and compare with the id of the item;
-    // let allStorageKeys = Object.keys(localStorage);
-    // if (allStorageKeys.includes(`${items.id}`)) {
-    //     alert(`Please uncheck ${items.item}\nbefore Remove`);
-    // }
-    // else {
-    //     if (window.confirm(`Do you want to Remove ${items.item}?`)) {
-    //         const newList = storedProduct.filter((item) => item.id !== items.id)
-    //         setStoredProduct(newList)
-    //     }
-    // }
-    //}
-
-    const handleClickDelete = (items) => {
-        const newList = storedProduct.filter((item) => item.id !== items.id)
-        setStoredProduct(newList);
-        setNotification(`${items.item} Removed !`);
     }
 
 
@@ -169,7 +143,7 @@ const MainPage = () => {
                 </button>
 
             </form>
-            <StoredProducts handleClickDelete={handleClickDelete} product={product} addPurchasedStorage={addPurchasedStorage} notification={notification} setNotification={setNotification}/>
+            <StoredProducts handleClickDelete={handleClickDelete} product={product} addPurchasedStorage={addPurchasedStorage} notification={notification} setNotification={setNotification} updateItem={updateItem} storedProduct={storedProduct}/>
         </div>
     )
 }

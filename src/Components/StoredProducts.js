@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter} from "react-router-dom";
 import StoredProductCard from './StoredProductCard';
 
 
 const StoredProducts = (props) => {
 
-    const { handleClickDelete, addPurchasedStorage, notification, setNotification } = props
+    const { handleClickDelete, addPurchasedStorage, notification, setNotification, storedProduct } = props
 
     const [retrieveProduct, setRetrieveProduct] = useState('');
 
@@ -25,27 +26,24 @@ const StoredProducts = (props) => {
                 setRetrieveProduct(productsResponse);
             }
         }
-        let interval = setInterval(() => fetchData(), 1000);
+        fetchData()
+    }, [storedProduct])
 
-        return () => {
-            clearInterval(interval);
-        }
-    }, [retrieveProduct])
 
-   
     useEffect(() => {
         const reset = setInterval(() => (setNotification("")), 15000)
         return () => {
             clearInterval(reset);
         }
     }, [setNotification])
-    
-    
+
+
     if (!(retrieveProduct && Object.keys(retrieveProduct).length)) {
         return (
             <span className="loader"><h1>Hello! Please Add Item To Your Checklist 😍</h1></span>
         )
     }
+
 
     const productCard = retrieveProduct.map((stored, i) => {
         if (!retrieveProduct) { return '' }
@@ -53,7 +51,7 @@ const StoredProducts = (props) => {
             <div className="form-wrapper" key={i} style={{ borderColor: stored.color }}>
                 {/* <span className="sidebar" style={{ backgroundColor: stored.color }}></span> */}
                 <StoredProductCard
-                    stored={stored} handleClickDelete={handleClickDelete} selectOption={selectOption} addPurchasedStorage={addPurchasedStorage} retrieveProduct={retrieveProduct} i={i} notification={notification} setNotification={setNotification}
+                    stored={stored} handleClickDelete={handleClickDelete} selectOption={selectOption} addPurchasedStorage={addPurchasedStorage} retrieveProduct={retrieveProduct} i={i} notification={notification} setNotification={setNotification} 
                 />
             </div>
         )
@@ -66,4 +64,4 @@ const StoredProducts = (props) => {
     )
 }
 
-export default StoredProducts
+export default withRouter(StoredProducts)
