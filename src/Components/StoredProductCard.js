@@ -35,35 +35,37 @@ const StoredProductCard = (props) => {
 
     return (
         <>
-            <div className="value">
-                <label htmlFor={stored.id}>
-                    <input
-                        id={stored.id}
-                        name={stored.item}
-                        type="checkbox"
-                        defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
-                        onChange={(e) => selectOption(e, `${stored.id}`)}
-                        onClick={(e) => addPurchasedStorage(e, stored)}
-                    />
-                    <b></b>
-                    {stored.item ? <span style={{ marginLeft: "5px" }}>{stored.item}</span> : 'null'}
-                </label>
+            <div className="form-values">
+                <div className="value">
+                    <label htmlFor={stored.id}>
+                        <input
+                            id={stored.id}
+                            name={stored.item}
+                            type="checkbox"
+                            defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
+                            onChange={(e) => selectOption(e, `${stored.id}`)}
+                            onClick={(e) => addPurchasedStorage(e, stored)}
+                        />
+                        <b></b>
+                        {stored.item ? <span style={{ marginLeft: "15px" }}>{stored.item}</span> : 'null'}
+                    </label>
+                </div>
+
+                <div className="quantity">
+                    {stored.quantity ? <span> Qty: {stored.quantity}</span> : 'null'}
+                </div>
+
+                <div className="price">
+                    {stored.price ? <span>€ {stored.price}</span> : 'null'}
+                </div>
+
+                <div className="total">
+                    {stored.total ? <span> {((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stored.total)))}</span> : 'null'}
+                </div>
             </div>
 
-            <div className="quantity">
-                {stored.quantity ? <span> Qty: {stored.quantity}</span> : 'null'}
-            </div>
-
-            <div className="price">
-                {stored.price ? <span>€ {stored.price}</span> : 'null'}
-            </div>
-
-            <div className="total">
-                {stored.total ? <span> {((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stored.total)))}</span> : 'null'}
-            </div>
-
-            <div className="btn-del__edt" >
-                <button className="btn-delete" style={{ marginRight: '15px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => (handleEdit())}>
+            <div className="btn-del__edt" style={{ padding: '5px', marginLeft:'auto', marginRight:'0' }}>
+                <button className="btn-delete" style={{ marginRight: '25px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => (handleEdit())}>
                     <i className="far fa-edit"></i>
                 </button>
 
@@ -86,14 +88,14 @@ const StoredProductCard = (props) => {
                     <DialogueBox isopen={isopen} handleClose={handleClose}>
                         <div className="confirm-title"> <h4>Please uncheck &#9745; <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> before Remove !</h4></div>
 
-                        <button className="btn-no" style={{ width: '100%', marginBottom: '10px' }} onClick={() => handleClose()}>OK</button>
+                        <button className="btn-no" style={{ width: '100%', marginBottom: '10px', padding: '7px', borderRadius: '7px' }} onClick={() => handleClose()}>OK</button>
                     </DialogueBox>
             }
 
             <CheckBoxDialogue isChecked={isChecked} handleCloseCheck={handleCloseCheck}>
                 <div className="confirm-title"> <h4>Please uncheck &#9745; <span style={{ color: 'salmon', textTransform: 'uppercase' }}>{stored.item}</span> before Edit !</h4></div>
 
-                <button className="btn-no" style={{ width: '100%', marginBottom: '10px', backgroundColor:'salmon' }} onClick={() => handleCloseCheck()}>OK</button>
+                <button className="btn-no" style={{ width: '100%', marginBottom: '10px', backgroundColor: 'salmon', padding: '7px', borderRadius: '7px' }} onClick={() => handleCloseCheck()}>OK</button>
             </CheckBoxDialogue>
 
             { notification ? <Notification notification={notification} setNotification={setNotification} /> : ''}

@@ -77,7 +77,7 @@ const EditItem = (props) => {
     return (
         <div className="product-wrapper">
 
-            <form className="input-wrapper" onSubmit={onSubmit} style={{ backgroundColor: '#BA68C8', transition: '0.4s' }}>
+            <form className="input-wrapper" onSubmit={onSubmit} style={{ backgroundColor: '#9FA8DA', transition: '0.4s' }}>
 
                 <div className="logo-time">
                     <div className="logo">stbugyei</div>

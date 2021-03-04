@@ -4,8 +4,9 @@ import PurchasedCard from '../PurchasedCard';
 import currentDate from './CurrentDate';
 
 
-const PurchasedItem = () => {
+const PurchasedItem = (props) => {
 
+    const { storedProduct } = props
     const history = useHistory();
 
     const [retrievePurchasedItem, setretRievePurchasedItem] = useState('');
@@ -18,18 +19,21 @@ const PurchasedItem = () => {
     }
 
     useEffect(() => {
+
         const fetchData = async () => {
             const purchasedResponse = await JSON.parse(localStorage.getItem('purchased'));
             if (purchasedResponse) {
                 setretRievePurchasedItem(purchasedResponse);
             }
         }
-        let interval = setInterval(() => fetchData(), 1000);
+        
+        fetchData()
+        // let interval = setInterval(() => fetchData(), 1000);
 
-        return () => {
-            clearInterval(interval);
-        }
-    }, [retrievePurchasedItem])
+        // return () => {
+        //     clearInterval(interval);
+        // }
+    }, [storedProduct])
 
 
     if (!(retrievePurchasedItem && Object.keys(retrievePurchasedItem).length)) {

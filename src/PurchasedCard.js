@@ -12,8 +12,8 @@ const PurchasedCard = (props) => {
             <div className="form-wrapper" key={stored.id} style={{ borderColor: stored.color }}>
                 {/* <span className="sidebar" style={{ backgroundColor: stored.color}}></span> */}
 
-                <div className="value1">
-                    {stored.item ? <span style={{ marginLeft: "5px" }}>{stored.item}</span> : 'null'}
+                <div className="value1" style={{padding:'5px'}}>
+                    {stored.item ? <span>{stored.item}</span> : 'null'}
                 </div>
 
                 <div className="quantity">
