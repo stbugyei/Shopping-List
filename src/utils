@@ -1,0 +1,33 @@
+
+
+const [purchasedProduct, setPurchasedProduct] = useLocalStorage("purchased", []);
+
+    //====== Adding purchased items to localStorage  ====== 
+    const addPurchasedStorage = (e, items) => {
+        if (e.target.checked) {
+            if (!purchasedProduct.some(fav => fav.id === items.id)) {
+                setPurchasedProduct([...purchasedProduct, items])
+            }
+        }
+        else {
+            const newList = purchasedProduct.filter((item) => item.id !== items.id)
+            setPurchasedProduct(newList)
+        }
+    }
+
+        //=========== persistent checked state Function ============
+    const selectOption = (e, value) => {
+        if (e.target.checked) {
+            localStorage.setItem(value, e.target.checked);
+
+        } else {
+            localStorage.removeItem(value);
+        }
+    }
+
+defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
+onChange={(e) => selectOption(e, `${stored.id}`)}
+onClick={(e) => addPurchasedStorage(e, stored)}
+
+  //get all key values from localStorage and compare with the id of the item;
+    let allStorageKeys = Object.keys(localStorage);

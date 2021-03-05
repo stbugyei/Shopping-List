@@ -5,19 +5,10 @@ import StoredProductCard from './StoredProductCard';
 
 const StoredProducts = (props) => {
 
-    const { handleClickDelete, addPurchasedStorage, notification, setNotification, storedProduct } = props
+    const { handleClickDelete, notification, setNotification, storedProduct, checkCompleted } = props
 
     const [retrieveProduct, setRetrieveProduct] = useState('');
 
-    //=========== persistent checked state Function ============
-    const selectOption = (e, value) => {
-        if (e.target.checked) {
-            localStorage.setItem(value, e.target.checked);
-
-        } else {
-            localStorage.removeItem(value);
-        }
-    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,7 +42,7 @@ const StoredProducts = (props) => {
             <div className="form-wrapper" key={i} style={{ borderColor: stored.color }}>
                 {/* <span className="sidebar" style={{ backgroundColor: stored.color }}></span> */}
                 <StoredProductCard
-                    stored={stored} handleClickDelete={handleClickDelete} selectOption={selectOption} addPurchasedStorage={addPurchasedStorage} retrieveProduct={retrieveProduct} i={i} notification={notification} setNotification={setNotification} 
+                    stored={stored} handleClickDelete={handleClickDelete} retrieveProduct={retrieveProduct} i={i} notification={notification} setNotification={setNotification} checkCompleted={checkCompleted}
                 />
             </div>
         )

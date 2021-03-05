@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import useLocalStorage from "./Components/useLocalStorage"
 import EditItem from './Components/EditItem';
@@ -11,6 +11,7 @@ import './App.css';
 function App() {
 
   const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
+  const [retrievePurchasedItem, setretRievePurchasedItem] = useState('');
   const [notification, setNotification] = useState("");
 
   //====== Adding items to localStorage  ====== 
@@ -34,6 +35,24 @@ function App() {
     setStoredProduct(storedProduct.map((item) => (item.id === id ? filteredItem : item)))
   }
 
+  const checkCompleted = (e, id) => {
+    let checked = e.target.checked
+    setStoredProduct(storedProduct.map(item => { if (item.id === id) { item.check = checked } return item }))
+  }
+
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      const purchasedResponse = await JSON.parse(localStorage.getItem('products'));
+      if (purchasedResponse) {
+        //=========== Filter functions for purchased or checked item =======================
+        const FilteredPurchasedItem = purchasedResponse.filter(name => name.check === true);
+        setretRievePurchasedItem(FilteredPurchasedItem);
+      }
+    }
+    fetchData()
+  }, [storedProduct])
+
 
   return (
 
@@ -41,15 +60,15 @@ function App() {
       <Switch>
 
         <Route exact path="/purchaseditem">
-          <PurchasedItem storedProduct={storedProduct} />
+          <PurchasedItem retrievePurchasedItem={retrievePurchasedItem} />
         </Route>
 
         <Route exact path="/item/edit/:id/:item">
-          <EditItem updateItem={updateItem} storedProduct={storedProduct} />
+          <EditItem updateItem={updateItem} storedProduct={storedProduct} retrievePurchasedItem={retrievePurchasedItem} />
         </Route>
 
         <Route exact path="/">
-          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct}  />
+          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} />
         </Route>
 
       </Switch>

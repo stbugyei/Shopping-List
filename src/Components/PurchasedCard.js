@@ -4,7 +4,6 @@ const PurchasedCard = (props) => {
 
     const { retrievePurchasedItem } = props
 
-    
     const productCard = retrievePurchasedItem.map((stored, i) => {
 
         return (

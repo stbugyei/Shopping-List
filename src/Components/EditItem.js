@@ -7,7 +7,7 @@ import totalAmount from './TotalAmount';
 
 const EditItem = (props) => {
 
-    const { updateItem, storedProduct } = props
+    const { updateItem, storedProduct, retrievePurchasedItem } = props
     const { localTime } = currentDate();
     const { reducer } = totalAmount();
     const { id } = useParams();
@@ -41,16 +41,7 @@ const EditItem = (props) => {
         e.preventDefault();
     };
 
-    if (!(currentProduct && Object.keys(currentProduct).length)) {
-        return ''
-        // (
-        //     <span className="loader"></span>
-        // )
-    }
-
-    //=========== Fetch data from localStorage ============
-    const purchasedProduct = JSON.parse(localStorage.getItem('purchased'))
-
+    if (!(currentProduct && Object.keys(currentProduct).length)) { return '' }
 
     //======= Navigation functions ========
     const handlePurchased = () => {
@@ -88,7 +79,7 @@ const EditItem = (props) => {
                     <div className="banner-cart" onClick={handlePurchased}>
                         <IoCartOutline className="banner-cart__outline" />
                         <h4> Purchased Item</h4>
-                        {purchasedProduct ? <span className="btn-cart">{purchasedProduct.length}</span> : ''}
+                        {retrievePurchasedItem ? <span className="btn-cart">{retrievePurchasedItem.length}</span> : ''}
                     </div>
                     <div className="title">
                         <h1>My Shopping CheckList</h1>

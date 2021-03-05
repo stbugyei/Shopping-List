@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useHistory } from "react-router-dom";
-import PurchasedCard from '../PurchasedCard';
+import PurchasedCard from './PurchasedCard';
 import currentDate from './CurrentDate';
 
 
 const PurchasedItem = (props) => {
 
-    const { storedProduct } = props
+    const { retrievePurchasedItem } = props
+
     const history = useHistory();
-
-    const [retrievePurchasedItem, setretRievePurchasedItem] = useState('');
-
     const { localTime } = currentDate();
 
     //======= Navigation functions ========
     const handleHome = () => {
         history.push("/");
     }
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-            const purchasedResponse = await JSON.parse(localStorage.getItem('purchased'));
-            if (purchasedResponse) {
-                setretRievePurchasedItem(purchasedResponse);
-            }
-        }
-        
-        fetchData()
-        // let interval = setInterval(() => fetchData(), 1000);
-
-        // return () => {
-        //     clearInterval(interval);
-        // }
-    }, [storedProduct])
 
 
     if (!(retrievePurchasedItem && Object.keys(retrievePurchasedItem).length)) {

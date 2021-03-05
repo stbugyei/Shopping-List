@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
-import useLocalStorage from "./useLocalStorage"
 import { IoCartOutline } from 'react-icons/io5';
 import StoredProducts from './StoredProducts';
 import currentDate from './CurrentDate';
@@ -9,7 +8,7 @@ import totalAmount from './TotalAmount';
 
 const MainPage = (props) => {
 
-    const { addToStorage, handleClickDelete, notification, setNotification, updateItem, storedProduct } = props
+    const { addToStorage, handleClickDelete, notification, setNotification, updateItem, storedProduct, checkCompleted, retrievePurchasedItem } = props
 
     const history = useHistory();
 
@@ -26,9 +25,6 @@ const MainPage = (props) => {
         check: false,
     });
 
-    // const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
-    const [purchasedProduct, setPurchasedProduct] = useLocalStorage("purchased", []);
-    // const [notification, setNotification] = useState("");
 
     //================ ID =================
     product.id = (Math.random() * 1000000).toFixed(0)
@@ -77,20 +73,6 @@ const MainPage = (props) => {
 
     product.color = generateHexaColor();
 
-    //====== Adding purchased items to localStorage  ====== 
-    const addPurchasedStorage = (e, items) => {
-        if (e.target.checked) {
-            if (!purchasedProduct.some(fav => fav.id === items.id)) {
-                setPurchasedProduct([...purchasedProduct, items])
-            }
-        }
-        else {
-            const newList = purchasedProduct.filter((item) => item.id !== items.id)
-            setPurchasedProduct(newList)
-        }
-    }
-
-
     //======= Navigation functions ========
     const handlePurchased = () => {
         history.push("/purchaseditem");
@@ -110,7 +92,7 @@ const MainPage = (props) => {
                     <div className="banner-cart" onClick={handlePurchased}>
                         <IoCartOutline className="banner-cart__outline" />
                         <h4> Purchased Item</h4>
-                        <span className="btn-cart">{purchasedProduct.length}</span>
+                        <span className="btn-cart">{retrievePurchasedItem.length}</span>
                     </div>
                     <div className="title">
                         <h1>My Shopping CheckList</h1>
@@ -143,7 +125,8 @@ const MainPage = (props) => {
                 </button>
 
             </form>
-            <StoredProducts handleClickDelete={handleClickDelete} product={product} addPurchasedStorage={addPurchasedStorage} notification={notification} setNotification={setNotification} updateItem={updateItem} storedProduct={storedProduct}/>
+
+            <StoredProducts handleClickDelete={handleClickDelete} product={product} notification={notification} setNotification={setNotification} updateItem={updateItem} storedProduct={storedProduct} checkCompleted={checkCompleted} />
         </div>
     )
 }

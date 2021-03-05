@@ -6,11 +6,10 @@ import Notification from './Notification';
 import CheckBoxDialogue from './CheckBoxDialogue';
 
 const StoredProductCard = (props) => {
-    const history = useHistory();
-    const { stored, handleClickDelete, selectOption, addPurchasedStorage, retrieveProduct, notification, setNotification, i } = props
 
-    //get all key values from localStorage and compare with the id of the item;
-    let allStorageKeys = Object.keys(localStorage);
+    const history = useHistory();
+
+    const { stored, handleClickDelete, retrieveProduct, notification, setNotification, checkCompleted, i } = props
 
     const [isopen, setIsopen] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
@@ -25,7 +24,7 @@ const StoredProductCard = (props) => {
 
     //======= Navigation functions for Edit========
     const handleEdit = () => {
-        if (allStorageKeys.includes(stored.id)) {
+        if ((stored.check === true)) {
             setIsChecked(true)
         } else {
             history.push(`/item/edit/${stored.id}/${stored.item}`);
@@ -42,9 +41,8 @@ const StoredProductCard = (props) => {
                             id={stored.id}
                             name={stored.item}
                             type="checkbox"
-                            defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
-                            onChange={(e) => selectOption(e, `${stored.id}`)}
-                            onClick={(e) => addPurchasedStorage(e, stored)}
+                            defaultChecked={stored.check === true ? 'defaultChecked' : ''}
+                            onChange={(e) => checkCompleted(e, stored.id)}
                         />
                         <b></b>
                         {stored.item ? <span style={{ marginLeft: "15px" }}>{stored.item}</span> : 'null'}
@@ -64,7 +62,7 @@ const StoredProductCard = (props) => {
                 </div>
             </div>
 
-            <div className="btn-del__edt" style={{ padding: '5px', marginLeft:'auto', marginRight:'0' }}>
+            <div className="btn-del__edt" style={{ padding: '5px', marginLeft: 'auto', marginRight: '0' }}>
                 <button className="btn-delete" style={{ marginRight: '25px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => (handleEdit())}>
                     <i className="far fa-edit"></i>
                 </button>
@@ -76,7 +74,7 @@ const StoredProductCard = (props) => {
             </div>
 
             {
-                (!(allStorageKeys.includes(stored.id))) ?
+                (!(stored.check === true)) ?
                     <DialogueBox isopen={isopen} handleClose={handleClose}>
                         <div className="confirm-title"> <h4>Do You Want To Remove <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> ?</h4></div>
                         <div className="btn-yes__wrapper">
@@ -86,16 +84,22 @@ const StoredProductCard = (props) => {
                     </DialogueBox>
                     :
                     <DialogueBox isopen={isopen} handleClose={handleClose}>
-                        <div className="confirm-title"> <h4>Please uncheck &#9745; <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> before Remove !</h4></div>
+                        <div className="confirm-title"> <h4> <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> is marked <span style={{ color: 'red' }}>&#9745;</span> as purchased, do you still want to Remove !</h4></div>
 
-                        <button className="btn-no" style={{ width: '100%', marginBottom: '10px', padding: '7px', borderRadius: '7px' }} onClick={() => handleClose()}>OK</button>
+                        <div className="btn-yes__wrapper">
+                            <button className="btn-no" onClick={() => handleClose()}>No</button>
+                            <button className="btn-yes" onClick={() => { handleClickDelete(retrieveProduct[i]); handleClose() }}>Yes</button>
+                        </div>
                     </DialogueBox>
             }
 
             <CheckBoxDialogue isChecked={isChecked} handleCloseCheck={handleCloseCheck}>
-                <div className="confirm-title"> <h4>Please uncheck &#9745; <span style={{ color: 'salmon', textTransform: 'uppercase' }}>{stored.item}</span> before Edit !</h4></div>
+                <div className="confirm-title"> <h4> <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> is marked  <span style={{ color: 'red' }}>&#9745;</span> as purchased, do you still want to Edit !</h4></div>
 
-                <button className="btn-no" style={{ width: '100%', marginBottom: '10px', backgroundColor: 'salmon', padding: '7px', borderRadius: '7px' }} onClick={() => handleCloseCheck()}>OK</button>
+                <div className="btn-yes__wrapper">
+                    <button className="btn-no" style={{ backgroundColor: 'salmon' }} onClick={() => handleCloseCheck()}>No</button>
+                    <button className="btn-yes" style={{ color: 'salmon' }} onClick={() => history.push(`/item/edit/${stored.id}/${stored.item}`)}>Yes</button>
+                </div>
             </CheckBoxDialogue>
 
             { notification ? <Notification notification={notification} setNotification={setNotification} /> : ''}
