@@ -78,6 +78,15 @@ const MainPage = (props) => {
         history.push("/purchaseditem");
     }
 
+    //=========== persistent checked state Function ============
+    // const selectOption = (e) => {
+    //     if (e.target.checked) {
+    //         localStorage.setItem('isChecked', e.target.checked);
+
+    //     } else {
+    //         localStorage.removeItem('isChecked');
+    //     }
+    // }
 
     return (
         <div className="product-wrapper">
@@ -126,7 +135,17 @@ const MainPage = (props) => {
 
             </form>
 
+            {/* {storedProduct.length !== 0 ? <div className="checkall">
+                <label>
+                    <input type="checkbox" onChange={(e) => { checkCompletedAll(e); selectOption(e) }}
+                        defaultChecked={localStorage.getItem('isChecked') === "true" ? 'defaultChecked' : ''} />
+                    <b></b>
+                    <span style={{ marginLeft: "15px", cursor: 'pointer' }}>Click Here To Mark All Item As Purchased</span>
+                </label>
+            </div> : ''} */}
+
             <StoredProducts handleClickDelete={handleClickDelete} product={product} notification={notification} setNotification={setNotification} updateItem={updateItem} storedProduct={storedProduct} checkCompleted={checkCompleted} />
+
         </div>
     )
 }

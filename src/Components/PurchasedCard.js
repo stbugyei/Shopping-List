@@ -15,7 +15,7 @@ const PurchasedCard = (props) => {
                     {stored.item ? <span>{stored.item}</span> : 'null'}
                 </div>
 
-                <div className="quantity">
+                <div className="quantity" style={{ width:'initial',marginLeft: 'auto', marginRight: '0' }}>
                     {stored.quantity ? <span> Qty: {stored.quantity}</span> : 'null'}
                 </div>
 

@@ -34,32 +34,18 @@ const StoredProductCard = (props) => {
 
     return (
         <>
-            <div className="form-values">
-                <div className="value">
-                    <label htmlFor={stored.id}>
-                        <input
-                            id={stored.id}
-                            name={stored.item}
-                            type="checkbox"
-                            defaultChecked={stored.check === true ? 'defaultChecked' : ''}
-                            onChange={(e) => checkCompleted(e, stored.id)}
-                        />
-                        <b></b>
-                        {stored.item ? <span style={{ marginLeft: "15px" }}>{stored.item}</span> : 'null'}
-                    </label>
-                </div>
-
-                <div className="quantity">
-                    {stored.quantity ? <span> Qty: {stored.quantity}</span> : 'null'}
-                </div>
-
-                <div className="price">
-                    {stored.price ? <span>€ {stored.price}</span> : 'null'}
-                </div>
-
-                <div className="total">
-                    {stored.total ? <span> {((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stored.total)))}</span> : 'null'}
-                </div>
+            <div className="value">
+                <label htmlFor={stored.id}>
+                    <input
+                        id={stored.id}
+                        value={stored.item}
+                        type="checkbox"
+                        checked={stored.check}
+                        onChange={(e) => checkCompleted(e, stored.id)}
+                    />
+                    <b></b>
+                    {stored.item ? <span style={{ marginLeft: "15px" }}>{stored.item}</span> : 'null'}
+                </label>
             </div>
 
             <div className="btn-del__edt" style={{ padding: '5px', marginLeft: 'auto', marginRight: '0' }}>
@@ -72,6 +58,31 @@ const StoredProductCard = (props) => {
                 </button>
 
             </div>
+
+            <div className="form-values">
+                <div className="quantity">
+                    <span>Qty:</span>   {stored.quantity ? <span> {stored.quantity}</span> : 'null'}
+                </div>
+
+                <div className="price">
+                    <span>Price: €</span>  {stored.price ? <span> {stored.price}</span> : 'null'}
+                </div>
+
+                <div className="total">
+                    <span>Amt:</span> {stored.total ? <span>{((new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stored.total)))}</span> : 'null'}
+                </div>
+            </div>
+
+            {/* <div className="btn-del__edt" style={{ padding: '5px', marginLeft: 'auto', marginRight: '0' }}>
+                <button className="btn-delete" style={{ marginRight: '25px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => (handleEdit())}>
+                    <i className="far fa-edit"></i>
+                </button>
+
+                <button className="btn-delete" onClick={() => setIsopen(true)}>
+                    <IoTrashOutline style={{ color: 'salmon', fontSize: '20px', fontWeight: 'bold', transition: 'all .4s' }} />
+                </button>
+
+            </div> */}
 
             {
                 (!(stored.check === true)) ?
@@ -109,3 +120,5 @@ const StoredProductCard = (props) => {
 
 
 export default withRouter(StoredProductCard)
+
+

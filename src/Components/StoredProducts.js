@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import StoredProductCard from './StoredProductCard';
 
 
@@ -56,3 +56,4 @@ const StoredProducts = (props) => {
 }
 
 export default withRouter(StoredProducts)
+

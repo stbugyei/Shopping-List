@@ -35,13 +35,20 @@ function App() {
     setStoredProduct(storedProduct.map((item) => (item.id === id ? filteredItem : item)))
   }
 
+  //========== Function to toggle checkbox state =======
   const checkCompleted = (e, id) => {
     let checked = e.target.checked
     setStoredProduct(storedProduct.map(item => { if (item.id === id) { item.check = checked } return item }))
   }
 
+  //==== Function to toggle checkbox state for all item ====
+  const checkCompletedAll = (e) => {
+    let checked = e.target.checked
+    setStoredProduct(storedProduct.map(item => { item.check = checked; return item }))
+  }
+
   useEffect(() => {
-    
+
     const fetchData = async () => {
       const purchasedResponse = await JSON.parse(localStorage.getItem('products'));
       if (purchasedResponse) {
@@ -68,7 +75,7 @@ function App() {
         </Route>
 
         <Route exact path="/">
-          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} />
+          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} checkCompletedAll={checkCompletedAll} />
         </Route>
 
       </Switch>

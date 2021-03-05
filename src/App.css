@@ -188,7 +188,7 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	/* padding: 10px; */
-	margin: 0px 0px 7px;
+	/* margin: 0px 0px 7px; */
 	border-bottom: 2px solid;
 	/* border-radius: 4px; */
 	/* outline: 1px solid; */
@@ -204,8 +204,6 @@
 .form-values {
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
 }
 
 .sidebar {
@@ -229,9 +227,27 @@
 
 /* customised checkbox */
 
+.price,
+.total,
+.value1 {
+	display: block;
+	margin-left: auto;
+	margin-right: 0;
+}
+
 .value {
 	position: relative;
 	padding: 5px;
+}
+
+.value1 {
+	display: block;
+	margin-right: auto;
+	margin-left: 0;
+}
+
+.quantity {
+	width: 90px;
 }
 
 .quantity,
@@ -262,6 +278,38 @@
 }
 
 .value input[type=checkbox]:checked ~ b:after {
+	content: '\2713';
+}
+
+.checkall input[type=checkbox] {
+	display: none;
+	padding: 5px;
+}
+
+.checkall {
+	padding: 5px;
+	border-bottom: 1px solid navy;
+	cursor: pointer;
+}
+
+.checkall input[type=checkbox] ~ b {
+	cursor: pointer;
+	outline: 0;
+	position: relative;
+	display: inline-block;
+	font-size: 18px;
+	color: red;
+	background-color: #fff;
+	border-radius: 5px;
+	width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    line-height: 1.2;
+	text-align: center;
+	box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%);
+}
+
+.checkall input[type=checkbox]:checked ~ b:after {
 	content: '\2713';
 }
 
@@ -371,6 +419,10 @@
 .btn-yes:hover {
 	color: darkblue;
 	border-color: darkblue;
+}
+
+.form-wrapper:nth-child(odd) {
+	background-color: whitesmoke;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {

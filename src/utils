@@ -25,9 +25,20 @@ const [purchasedProduct, setPurchasedProduct] = useLocalStorage("purchased", [])
         }
     }
 
+ defaultChecked={stored.check === true ? 'defaultChecked' : ''}
 defaultChecked={localStorage.getItem(`${stored.id}`) === "true" ? 'defaultChecked' : ''}
 onChange={(e) => selectOption(e, `${stored.id}`)}
 onClick={(e) => addPurchasedStorage(e, stored)}
 
-  //get all key values from localStorage and compare with the id of the item;
+get all key values from localStorage and compare with the id of the item;
     let allStorageKeys = Object.keys(localStorage);
+
+
+  const checkCompleted1 = (e, id) => {
+    let checked = e.target.checked
+    storedProduct.forEach(item => {
+      if (item.id === id) { item.check = checked }
+    });
+    setStoredProduct(storedProduct)
+  }
+
