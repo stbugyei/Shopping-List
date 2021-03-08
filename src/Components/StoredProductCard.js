@@ -73,17 +73,6 @@ const StoredProductCard = (props) => {
                 </div>
             </div>
 
-            {/* <div className="btn-del__edt" style={{ padding: '5px', marginLeft: 'auto', marginRight: '0' }}>
-                <button className="btn-delete" style={{ marginRight: '25px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => (handleEdit())}>
-                    <i className="far fa-edit"></i>
-                </button>
-
-                <button className="btn-delete" onClick={() => setIsopen(true)}>
-                    <IoTrashOutline style={{ color: 'salmon', fontSize: '20px', fontWeight: 'bold', transition: 'all .4s' }} />
-                </button>
-
-            </div> */}
-
             {
                 (!(stored.check === true)) ?
                     <DialogueBox isopen={isopen} handleClose={handleClose}>
@@ -95,7 +84,7 @@ const StoredProductCard = (props) => {
                     </DialogueBox>
                     :
                     <DialogueBox isopen={isopen} handleClose={handleClose}>
-                        <div className="confirm-title"> <h4> <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> is marked <span style={{ color: 'red' }}>&#9745;</span> as purchased, do you still want to Remove !</h4></div>
+                        <div className="confirm-title"> <h4> <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> is marked <span style={{ color: 'red' }}>&#9745;</span> as purchased, do you still want to Remove&#33; </h4></div>
 
                         <div className="btn-yes__wrapper">
                             <button className="btn-no" onClick={() => handleClose()}>No</button>
@@ -105,7 +94,7 @@ const StoredProductCard = (props) => {
             }
 
             <CheckBoxDialogue isChecked={isChecked} handleCloseCheck={handleCloseCheck}>
-                <div className="confirm-title"> <h4> <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> is marked  <span style={{ color: 'red' }}>&#9745;</span> as purchased, do you still want to Edit !</h4></div>
+                <div className="confirm-title"> <h4> <span style={{ color: 'red', textTransform: 'uppercase' }}>{stored.item}</span> is marked  <span style={{ color: 'red' }}>&#9745;</span> as purchased, do you still want to Edit&#33; </h4></div>
 
                 <div className="btn-yes__wrapper">
                     <button className="btn-no" style={{ backgroundColor: 'salmon' }} onClick={() => handleCloseCheck()}>No</button>

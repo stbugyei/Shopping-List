@@ -12,6 +12,7 @@ function App() {
 
   const [storedProduct, setStoredProduct] = useLocalStorage("products", []);
   const [retrievePurchasedItem, setretRievePurchasedItem] = useState('');
+  const [checkedAll, setCheckedAll] = useLocalStorage("checkedAll", false);
   const [notification, setNotification] = useState("");
 
   //====== Adding items to localStorage  ====== 
@@ -42,10 +43,37 @@ function App() {
   }
 
   //==== Function to toggle checkbox state for all item ====
-  const checkCompletedAll = (e) => {
-    let checked = e.target.checked
-    setStoredProduct(storedProduct.map(item => { item.check = checked; return item }))
+  const checkCompletedAll = (value) => {
+    setCheckedAll(value);
+    setStoredProduct(storedProduct.map(item => { item.check = value; return item }))
   }
+
+  //==== Condition to toggle the check all checkbox to true/false ====
+  
+  useEffect(() => {
+    let allchecked = true;
+    let allPurchased = storedProduct.some(ticked => ticked.check === false)
+
+    if (allPurchased) {
+      allchecked = false
+    }
+
+    if (allchecked) {
+      const reset = setInterval(() => (setCheckedAll(true)), 100)
+      return () => {
+        clearInterval(reset);
+      }
+
+    } else {
+      const reset1 = setInterval(() => (setCheckedAll(false)), 100)
+      return () => {
+        clearInterval(reset1);
+      }
+
+    }
+
+  }, [setCheckedAll, storedProduct])
+
 
   useEffect(() => {
 
@@ -57,7 +85,7 @@ function App() {
         setretRievePurchasedItem(FilteredPurchasedItem);
       }
     }
-    fetchData()
+    fetchData();
   }, [storedProduct])
 
 
@@ -75,7 +103,7 @@ function App() {
         </Route>
 
         <Route exact path="/">
-          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} checkCompletedAll={checkCompletedAll} />
+          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} checkCompletedAll={checkCompletedAll} checkedAll={checkedAll} setCheckedAll={setCheckedAll} />
         </Route>
 
       </Switch>

@@ -8,7 +8,7 @@ import totalAmount from './TotalAmount';
 
 const MainPage = (props) => {
 
-    const { addToStorage, handleClickDelete, notification, setNotification, updateItem, storedProduct, checkCompleted, retrievePurchasedItem } = props
+    const { addToStorage, handleClickDelete, notification, setNotification, updateItem, storedProduct, checkCompleted, retrievePurchasedItem, checkCompletedAll, checkedAll } = props
 
     const history = useHistory();
 
@@ -78,16 +78,6 @@ const MainPage = (props) => {
         history.push("/purchaseditem");
     }
 
-    //=========== persistent checked state Function ============
-    // const selectOption = (e) => {
-    //     if (e.target.checked) {
-    //         localStorage.setItem('isChecked', e.target.checked);
-
-    //     } else {
-    //         localStorage.removeItem('isChecked');
-    //     }
-    // }
-
     return (
         <div className="product-wrapper">
             <form className="input-wrapper" onSubmit={handleSubmit}>
@@ -135,14 +125,13 @@ const MainPage = (props) => {
 
             </form>
 
-            {/* {storedProduct.length !== 0 ? <div className="checkall">
+            {storedProduct.length !== 0 ? <div className="checkall">
                 <label>
-                    <input type="checkbox" onChange={(e) => { checkCompletedAll(e); selectOption(e) }}
-                        defaultChecked={localStorage.getItem('isChecked') === "true" ? 'defaultChecked' : ''} />
+                    <input type="checkbox" onChange={(e) => checkCompletedAll(e.target.checked)} checked={checkedAll} />
                     <b></b>
                     <span style={{ marginLeft: "15px", cursor: 'pointer' }}>Click Here To Mark All Item As Purchased</span>
                 </label>
-            </div> : ''} */}
+            </div> : ''}
 
             <StoredProducts handleClickDelete={handleClickDelete} product={product} notification={notification} setNotification={setNotification} updateItem={updateItem} storedProduct={storedProduct} checkCompleted={checkCompleted} />
 

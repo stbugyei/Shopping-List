@@ -42,3 +42,32 @@ get all key values from localStorage and compare with the id of the item;
     setStoredProduct(storedProduct)
   }
 
+   const checkCompleted = (e, id) => {
+   let checked = e.target.checked
+    setStoredProduct(storedProduct.map(item => {
+      if (item.id === id) {
+        item.checked = checked
+      }
+      return item
+    }
+    ))
+  }
+
+    const checkCompletedAll = (e) => {
+    // let checked = e.target.checked
+    // storedProduct.forEach(element => {
+    //   element.check = checked
+    //   //console.log(element)
+    //   if (element.check) {
+    //     setCheckedAll(true)
+    //   } else {
+    //     setCheckedAll(false)
+    //   }
+    // });
+    // setStoredProduct(storedProduct)
+  }
+
+      //setCheckedAll(prevState => ({ ...prevState, checkedAll: false }))
+
+            // setCheckedAll(prevState => ({ ...prevState, checkedAll: true }))
+

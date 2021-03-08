@@ -21,7 +21,8 @@ const EditItem = (props) => {
         })
         setCurrentProduct(producItem)
 
-    }, [id, storedProduct])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id])
 
 
     //========= An onChange event for updating the products =========
