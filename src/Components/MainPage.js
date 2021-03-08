@@ -4,11 +4,12 @@ import { IoCartOutline } from 'react-icons/io5';
 import StoredProducts from './StoredProducts';
 import currentDate from './CurrentDate';
 import totalAmount from './TotalAmount';
+import DialogueBox from './DialogueBox';
 
 
 const MainPage = (props) => {
 
-    const { addToStorage, handleClickDelete, notification, setNotification, updateItem, storedProduct, checkCompleted, retrievePurchasedItem, checkCompletedAll, checkedAll } = props
+    const { addToStorage, handleClickDelete, handleClickDeleteAll, notification, setNotification, updateItem, storedProduct, checkCompleted, retrievePurchasedItem, checkCompletedAll, checkedAll } = props
 
     const history = useHistory();
 
@@ -24,7 +25,7 @@ const MainPage = (props) => {
         color: "",
         check: false,
     });
-
+    const [isopen, setIsopen] = useState(false)
 
     //================ ID =================
     product.id = (Math.random() * 1000000).toFixed(0)
@@ -78,6 +79,10 @@ const MainPage = (props) => {
         history.push("/purchaseditem");
     }
 
+    const handleClose = () => {
+        setIsopen(false)
+    }
+
     return (
         <div className="product-wrapper">
             <form className="input-wrapper" onSubmit={handleSubmit}>
@@ -124,14 +129,28 @@ const MainPage = (props) => {
                 </button>
 
             </form>
+            {storedProduct.length !== 0 ? <div className="checkall-wrapper">
+                <div className="checkall">
+                    <label>
+                        <input type="checkbox" onChange={(e) => checkCompletedAll(e.target.checked)} checked={checkedAll} />
+                        <b></b>
+                        <span style={{ marginLeft: "10px", cursor: 'pointer', textShadow: '0 3px 6px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 23%)' }}>Select All Item </span>
+                    </label>
+                </div>
 
-            {storedProduct.length !== 0 ? <div className="checkall">
-                <label>
-                    <input type="checkbox" onChange={(e) => checkCompletedAll(e.target.checked)} checked={checkedAll} />
-                    <b></b>
-                    <span style={{ marginLeft: "15px", cursor: 'pointer' }}>Click Here To Mark All Item As Purchased</span>
-                </label>
+                <button className="btn-delete" style={{ fontFamily: 'inherit', fontSize: 'inherit', background: 'transparent', boxShadow: 'none', padding: '5px' }} onClick={() => setIsopen(true)}>
+                    <span style={{ color: 'salmon', textShadow: 'initial' }}><i className="far fa-trash-alt"></i></span> Delete All Selected
+                </button>
+
             </div> : ''}
+
+            <DialogueBox isopen={isopen} handleClose={handleClose}>
+                <div className="confirm-title"> <h4>Do You Want To Remove All Selected Item?</h4></div>
+                <div className="btn-yes__wrapper">
+                    <button className="btn-no" onClick={() => handleClose()}>No</button>
+                    <button className="btn-yes" onClick={() => { handleClickDeleteAll(); handleClose() }}>Yes</button>
+                </div>
+            </DialogueBox>
 
             <StoredProducts handleClickDelete={handleClickDelete} product={product} notification={notification} setNotification={setNotification} updateItem={updateItem} storedProduct={storedProduct} checkCompleted={checkCompleted} />
 

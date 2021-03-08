@@ -281,6 +281,14 @@
 	content: '\2713';
 }
 
+.checkall-wrapper{
+	width: 100%;
+	padding: 5px;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid navy;
+}
+
 .checkall input[type=checkbox] {
 	display: none;
 	padding: 5px;
@@ -288,7 +296,6 @@
 
 .checkall {
 	padding: 5px;
-	border-bottom: 1px solid navy;
 	cursor: pointer;
 }
 
@@ -328,12 +335,13 @@
 }
 
 .dialogue-content {
-	position: absolute;
+	/* position: absolute; */
 	width: 320px;
 	padding: 10px;
-	top: 50%;
+	/* top: 50%;
 	right: 50%;
-	transform: translate(50%, -50%);
+	transform: translate(50%, -50%); */
+	margin: 50% auto;
 	border-radius: 8px;
 	background-color: #fff;
 	box-shadow: 0 10px 20px rgb(0 0 0 / 9%);

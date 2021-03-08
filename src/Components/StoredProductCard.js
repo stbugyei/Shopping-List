@@ -31,6 +31,9 @@ const StoredProductCard = (props) => {
         }
     }
 
+    //========== Onclick function to move the page to the top ===========//
+    const scrollTotop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }) }
+
 
     return (
         <>
@@ -49,11 +52,11 @@ const StoredProductCard = (props) => {
             </div>
 
             <div className="btn-del__edt" style={{ padding: '5px', marginLeft: 'auto', marginRight: '0' }}>
-                <button className="btn-delete" style={{ marginRight: '25px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => (handleEdit())}>
+                <button className="btn-delete" style={{ marginRight: '25px', fontSize: '20px', fontWeight: 'bold', color: 'blueviolet' }} onClick={() => { (handleEdit()); scrollTotop()}}>
                     <i className="far fa-edit"></i>
                 </button>
 
-                <button className="btn-delete" onClick={() => setIsopen(true)}>
+                <button className="btn-delete" onClick={() => { setIsopen(true);scrollTotop()}}>
                     <IoTrashOutline style={{ color: 'salmon', fontSize: '20px', fontWeight: 'bold', transition: 'all .4s' }} />
                 </button>
 

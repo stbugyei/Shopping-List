@@ -22,10 +22,10 @@ const StoredProducts = (props) => {
 
 
     useEffect(() => {
-        // const reset = setInterval(() => (setNotification("")), 15000)
-        // return () => {
-        //     clearInterval(reset);
-        // }
+        const reset = setInterval(() => (setNotification("")), 15000)
+        return () => {
+            clearInterval(reset);
+        }
     }, [setNotification])
 
 

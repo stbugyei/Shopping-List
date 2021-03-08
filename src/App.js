@@ -6,6 +6,7 @@ import EditItem from './Components/EditItem';
 import MainPage from './Components/MainPage';
 import PurchasedItem from './Components/PurchasedItem';
 import './App.css';
+import ScrollToTop from './Components/ScrollToTop';
 
 
 function App() {
@@ -27,7 +28,25 @@ function App() {
   const handleClickDelete = (items) => {
     const newList = storedProduct.filter((item) => item.id !== items.id)
     setStoredProduct(newList);
-    setNotification(`${items.item} Removed !`);
+    setNotification(`${items.item} Removed!`);
+  }
+
+  //====== Deleting all selected items from localStorage  ======
+  const handleClickDeleteAll = () => {
+    let selectedItem = [];
+    let notList = []
+    storedProduct.forEach(itm => {
+      if (itm.check) {
+        selectedItem.push(itm)
+      }
+    });
+    const newList = storedProduct.filter(item1 => !selectedItem.some(item2 => item1.id === item2.id));
+    const notificationList = storedProduct.filter(item1 => selectedItem.some(item2 => item1.id === item2.id));
+    setStoredProduct(newList);
+    notificationList.forEach(element => {
+      notList.push(element.item)
+      setNotification(`${(notList).join(", ")} Removed!`)
+    });
   }
 
 
@@ -49,27 +68,20 @@ function App() {
   }
 
   //==== Condition to toggle the check all checkbox to true/false ====
-  
+
   useEffect(() => {
     let allchecked = true;
     let allPurchased = storedProduct.some(ticked => ticked.check === false)
 
-    if (allPurchased) {
-      allchecked = false
-    }
+    if (allPurchased) { allchecked = false }
 
     if (allchecked) {
       const reset = setInterval(() => (setCheckedAll(true)), 100)
-      return () => {
-        clearInterval(reset);
-      }
+      return () => { clearInterval(reset); }
 
     } else {
       const reset1 = setInterval(() => (setCheckedAll(false)), 100)
-      return () => {
-        clearInterval(reset1);
-      }
-
+      return () => { clearInterval(reset1); }
     }
 
   }, [setCheckedAll, storedProduct])
@@ -92,21 +104,23 @@ function App() {
   return (
 
     <Router>
-      <Switch>
+      <ScrollToTop>
+        <Switch>
 
-        <Route exact path="/purchaseditem">
-          <PurchasedItem retrievePurchasedItem={retrievePurchasedItem} />
-        </Route>
+          <Route exact path="/purchaseditem">
+            <PurchasedItem retrievePurchasedItem={retrievePurchasedItem} />
+          </Route>
 
-        <Route exact path="/item/edit/:id/:item">
-          <EditItem updateItem={updateItem} storedProduct={storedProduct} retrievePurchasedItem={retrievePurchasedItem} />
-        </Route>
+          <Route exact path="/item/edit/:id/:item">
+            <EditItem updateItem={updateItem} storedProduct={storedProduct} retrievePurchasedItem={retrievePurchasedItem} />
+          </Route>
 
-        <Route exact path="/">
-          <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} checkCompletedAll={checkCompletedAll} checkedAll={checkedAll} setCheckedAll={setCheckedAll} />
-        </Route>
+          <Route exact path="/">
+            <MainPage addToStorage={addToStorage} handleClickDelete={handleClickDelete} updateItem={updateItem} notification={notification} setNotification={setNotification} storedProduct={storedProduct} checkCompleted={checkCompleted} retrievePurchasedItem={retrievePurchasedItem} checkCompletedAll={checkCompletedAll} checkedAll={checkedAll} handleClickDeleteAll={handleClickDeleteAll} />
+          </Route>
 
-      </Switch>
+        </Switch>
+      </ScrollToTop>
     </Router>
   );
 }
